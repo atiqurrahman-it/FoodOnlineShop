@@ -1,6 +1,9 @@
 from django.db import models
-from custom_user_model.models import User
 # Create your models here.
+from custom_user_model.models import User
+
+
+
 
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
@@ -21,3 +24,5 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
