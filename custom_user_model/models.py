@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 
 from django.contrib.auth.models import (
@@ -14,7 +16,8 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
         if not username:
             raise ValueError('Users must have an username ')
-
+        
+        #unique username check kra bad ache 
 
         # normalize_email meens currect provide email. like  email upper case letter convert lower case 
         email=self.normalize_email(email)
@@ -30,6 +33,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, username,email,first_name,last_name, password=None):
         email=self.normalize_email(email)
+
         user=self.create_user(
             username=username,email=email,
             first_name=first_name,last_name=last_name,
@@ -53,9 +57,9 @@ class User(AbstractBaseUser):
     date_of_birth = models.DateField(blank=True,null=True)
     phone=models.IntegerField(blank=True,null=True)
      # required fields
-    date_joined=models.DateTimeField(auto_now_add=True)
-    last_login=models.DateTimeField(auto_now_add=True)
-    create_date=models.DateTimeField(auto_now_add=True)
+    date_joined= models.DateTimeField(default=timezone.now)
+    last_login=models.DateTimeField(default=timezone.now)
+    create_date=models.DateTimeField(default=timezone.now)
     modified_date=models.DateTimeField(auto_now=True)
 
     is_admin=models.BooleanField(default=False)
