@@ -64,53 +64,19 @@
   <body>
     <!--Main Wrapper-->
     <div class="wrapper">
-      <!-- Header Start -->
+      <!-- load Header Heare -->
       {% include 'include_page/header.html' %}
-      <!-- Header End -->
-
-      <!-- Main Section Start -->
-      <div class="main-section">
-        <!-- Home Pages Elements Strat -->
-
-        <!-- Main Search Start -->
-        {% block main_search %}{% endblock %}
-        <!-- Main Search End -->
-
-        <!-- Browse By Cuisine Section Start -->
-        {% block Browse_Cuisine %}{% endblock %}
-        <!-- Browse By Cuisine Section End -->
-
-        <!-- Popular Localities Section Start -->
-        {% block Popular_Localities %}{% endblock %}
-        <!-- Popular Localities Section End -->
-
-        <!-- Top Restarurants Section Start -->
-        {% block Top_Restarurants %}{% endblock %}
-        <!-- Top Restarurants Section End -->
-
-        <!-- Choose From Most Popular Listin Start -->
-        {% block Most_Popular_Listing_1 %}{% endblock %}
-        <!-- Choose From Most Popular Listing End -->
-
-        <!-- Choose From Most Popular Section Start -->
-        {% block Most_Popular_Listing_2 %}{% endblock %}
-        <!-- Choose From Most Popular Section End -->
-
-        <!-- Colunm Text Section Start -->
-        {% block Colunm_Text_order_app %} {% endblock %}
-        <!-- Colunm Text Section End -->
-
-        <!-- Client logo Section Start -->
-        {% block Client_logo_footer %} {% endblock %}
-        <!-- Client logo Section End -->
-
-        <!-- Home Pages Elements End  -->
-      </div>
-      <!-- Main Section End -->
-      <!-- Footer Start -->
+    	
+      {% block main_contant %}
+      <!-- main_contant   -->
+      {% endblock %}  
+       
+      
+      <!-- load Footer Heare  -->
       {% include 'include_page/footer.html' %}
-      <!-- Footer End -->
-    </div>
+
+    </div><!--Main Wrapper End -->
+
     <!-- Modal Popup Start -->
     <div class="modal fade" id="sign-in" aria-labelledby="myModalLabel">
       <div class="modal-dialog">
