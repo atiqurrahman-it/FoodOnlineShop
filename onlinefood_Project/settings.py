@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #my create apps
     'HomePage_app',
     'custom_user_model',
+    'userAccount',
 ]
 
 # create user mode for section
@@ -134,7 +135,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # py manage.py collectstatic
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 
 
 # Default primary key field type

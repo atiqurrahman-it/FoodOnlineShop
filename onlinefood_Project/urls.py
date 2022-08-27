@@ -16,8 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+# for  show pictuer admin panal 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('HomePage_app.urls')),
     path('custom_user_model/',include('custom_user_model.urls')),
+    path('userAccount/',include('userAccount.urls')),
 ]
+
+# for  show pictuer admin panal 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
