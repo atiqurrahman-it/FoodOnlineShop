@@ -38,8 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'HomePage_app'
+    #my create apps
+    'HomePage_app',
+    'custom_user_model',
 ]
+
+# create user mode for section
+AUTH_USER_MODEL ='custom_user_model.User'
+# je name user korechi oi name user  korte hobe model er (MyUser oi nite partam )
+# je name app niyechi oi name user korte hobe 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

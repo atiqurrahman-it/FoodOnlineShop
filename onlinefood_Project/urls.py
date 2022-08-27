@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('HomePage_app.urls')),
+    path('custom_user_model/',include('custom_user_model.urls')),
 ]
