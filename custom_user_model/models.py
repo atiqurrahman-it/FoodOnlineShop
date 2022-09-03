@@ -49,6 +49,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+    RESTAURANT=1
+    CUSTOMER=2
+    ROLE_CHOICE=(
+        (RESTAURANT,'rastaurant'),
+        (CUSTOMER,'customer'),
+    )
     # user= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=50)
@@ -56,6 +62,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(verbose_name='email address', max_length=255,unique=True,)
     date_of_birth = models.DateField(blank=True,null=True)
     phone=models.IntegerField(blank=True,null=True)
+    role=models.PositiveSmallIntegerField(choices=ROLE_CHOICE,null=True,blank=True)
      # required fields
     date_joined= models.DateTimeField(default=timezone.now)
     last_login=models.DateTimeField(default=timezone.now)
