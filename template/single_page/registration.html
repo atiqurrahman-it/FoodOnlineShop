@@ -68,6 +68,12 @@
                   <h2 class="mb-4"> Sign Up</h2>
                 </div>
                 <div class="input-info">
+
+                  <div class="">
+                    
+                    {% include 'message_show.html' %}
+                  </div>
+
                   <div class="row">
                     <form class="wp-user-form webkit" action="{% url 'register' %}"  method="POST">
                       {% csrf_token %}
@@ -141,6 +147,17 @@
                     </form>
                   </div>
                 </div>
+                <ul class="errorlist">
+                  {% for field in form %}
+                      {% if field.errors %}
+                          {% for error in field.errors %}
+                              <li style="color: red;list-style-type:none;">{{error}}</li>
+                          {% endfor %}
+                      {% endif %}
+                  {% endfor %}
+
+                  <li style="color: red;list-style-type:none;">{{form.non_field_errors}}</li>
+              </ul>
                 <div class="row">
                   <div class="form-bg">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">

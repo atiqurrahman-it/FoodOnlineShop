@@ -15,9 +15,9 @@ def create_profile(sender, instance, created, **kwargs):
     # instance meens current user (je user create korbo or update korbo)
     # create meens user create korle True .... and user update korle Flase return  korbe 
 
-    # ucser profile crete hobe user create korle 
+    # user profile crete hobe user create korle 
     if created:
-        print(created)
+        # print(created)  create ture or flase return kore .....
         print("create userprofile")
         UserProfile.objects.create(user=instance)
     # user edit korle user profile update hobe

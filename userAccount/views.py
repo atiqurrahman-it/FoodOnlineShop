@@ -1,14 +1,16 @@
+from xml.dom import ValidationErr
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from .forms import UserRgistrationForm
 from custom_user_model.models import User
 
-# Create your views here.
+#message show 
+from django.contrib import messages
 
+# Create your views here.
 def Register(request):
     if request.method == 'POST':
-        print(request.POST)
         form=UserRgistrationForm(request.POST)
         if form.is_valid():
             # create the user using from  start (problem 
@@ -23,12 +25,23 @@ def Register(request):
             username=form.cleaned_data['username']
             email=form.cleaned_data['email']
             password=form.cleaned_data['password']
+            confrim_password=form.cleaned_data['confrim_password']
+            # password mach check  ai khane korte partam 
+            # mach check korchi singnal.py file e 
+            if password==confrim_password:
+                print("password mach")
+            else:
+                print("password not match")
+                
             user=User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
             user.role=User.CUSTOMER
             user.save() #defule role customer add korlam
-
+            messages.success(request, ' successfully login ')
             return redirect('register')
-        return HttpResponse("Form is not  valid")
+        else:
+            print("invalid")
+            print(form.errors)
+
 
         
     else:
