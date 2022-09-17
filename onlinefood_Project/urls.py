@@ -26,6 +26,7 @@ urlpatterns = [
     path('',include('HomePage_app.urls')),
     path('custom_user_model/',include('custom_user_model.urls')),
     path('account/',include('userAccount.urls')),
+    path('vendor/',include('vendor.urls')),
 ]
 
 # for  show pictuer admin panal 

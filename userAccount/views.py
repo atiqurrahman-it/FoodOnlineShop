@@ -1,8 +1,10 @@
+from ast import Pass
 from xml.dom import ValidationErr
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from .forms import UserRgistrationForm
+from vendor.forms import vendorForm
 from custom_user_model.models import User
 
 #message show 
@@ -37,7 +39,7 @@ def Register(request):
             user.role=User.CUSTOMER
             user.save() #defule role customer add korlam
             messages.success(request, ' successfully login ')
-            return redirect('register')
+            return redirect('registrationUser')
         else:
             print("invalid")
             print(form.errors)
@@ -50,3 +52,30 @@ def Register(request):
         'form':form,
     }  
     return render(request,'single_page/registration.html',data)
+
+
+
+
+
+def RegistrationVendor(request):
+    if request.method=="POST":
+        form=UserRgistrationForm(request.POST)
+        v_form=vendorForm(request.POST,request.FILES)\
+        # both form valid then save model 
+        if form.is_valid() and  v_form.is_valid() :
+            print(form)
+            print(v_form)
+            
+        else:
+            print("Invalid Form ")
+            print(form.error)
+            
+    else:
+        form=UserRgistrationForm()
+        v_form=vendorForm()
+
+    data={
+        "form":form,
+        "v_form":v_form
+    }
+    return render(request,'single_page/registrationvedor.html',data)

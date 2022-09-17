@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'HomePage_app',
     'custom_user_model',
     'userAccount',
+    'vendor',
 ]
 
 # create user mode for section
@@ -140,7 +141,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "HomePage_app/static"),
     # or 'HomePage_app/static'
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
