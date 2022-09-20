@@ -1,4 +1,6 @@
 from ast import Pass
+from urllib import request
+from wsgiref.util import request_uri
 from xml.dom import ValidationErr
 
 from custom_user_model.models import User
@@ -55,7 +57,7 @@ def Register(request):
     data={
         'form':form,
     }  
-    return render(request,'single_page/registration.html',data)
+    return render(request,'useraccounts/registration.html',data)
 
 
 
@@ -96,4 +98,9 @@ def RegistrationVendor(request):
         "form":form,
         "v_form":v_form
     }
-    return render(request,'single_page/registrationvedor.html',data)
+    return render(request,'useraccounts/registrationvedor.html',data)
+
+
+
+def Login(request):
+    return render(request,'useraccounts/login.html')
