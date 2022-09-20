@@ -49,10 +49,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    RESTAURANT=1
+    Vendor=1
     CUSTOMER=2
     ROLE_CHOICE=(
-        (RESTAURANT,'rastaurant'),
+        (Vendor,'Vendor'),
         (CUSTOMER,'customer'),
     )
     # user= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
