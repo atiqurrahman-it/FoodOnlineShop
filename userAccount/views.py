@@ -14,10 +14,17 @@ from userAccount.models import UserProfile
 
 from .forms import UserRgistrationForm
 
+# login 
+from django.contrib.auth import authenticate, login,logout
+
 
 # Create your views here.
-def Register(request):
-    if request.method == 'POST':
+def RegisterUser(request):
+     # if already registerUser 
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already registerUser !')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         form=UserRgistrationForm(request.POST)
         if form.is_valid():
             # create the user using from  start (problem 
@@ -44,7 +51,7 @@ def Register(request):
             user=User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
             user.role=User.CUSTOMER
             user.save() #defule role customer add korlam
-            messages.success(request, 'your account has been registerd successfully')
+            messages.error(request, 'your account has been registerd successfully')
             return redirect('registrationUser')
         else:
             print("invalid")
@@ -64,7 +71,11 @@ def Register(request):
 
 
 def RegistrationVendor(request):
-    if request.method=="POST":
+         # if already registerUser 
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already registerVendor !')
+        return redirect('dashboard')
+    elif request.method=="POST":
         form=UserRgistrationForm(request.POST)
         v_form=vendorForm(request.POST,request.FILES)
         # both form valid then save model 
@@ -83,7 +94,7 @@ def RegistrationVendor(request):
             Userprofile=UserProfile.objects.get(user=user)
             vendor.user_profil=Userprofile
             vendor.save()
-            messages.success(request, 'your account has been registerd successfully')
+            messages.error(request, 'your account has been registerd successfully')
           
             
         else:
@@ -103,4 +114,35 @@ def RegistrationVendor(request):
 
 
 def Login(request):
+    # if already login 
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already logged in!')
+        return redirect('dashboard')
+    elif request.method=='POST':
+        
+        email=request.POST['email']
+        password=request.POST['password']
+
+        user = authenticate(request, email=email, password=password)
+        # is_activate is ture then login 
+        if user is not None:
+            login(request, user)
+            messages.error(request, 'successfully login ....select your favorite  food  !')
+            return redirect('dashboard')
+        # Redirect to a success page.
+        else:
+            print("user is not found ")
+            messages.error(request, 'email or password not match . please try again !')
+            return redirect('login')
+            
     return render(request,'useraccounts/login.html')
+
+def Logout(request):
+    logout(request)
+    messages.error(request, 'successfully login out  !')
+    return redirect('login')
+
+
+def Dashbord(request):
+    return render(request,'useraccounts/dashboard.html')
+
