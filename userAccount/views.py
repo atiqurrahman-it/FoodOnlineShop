@@ -2,10 +2,14 @@ from ast import Pass
 from urllib import request
 from wsgiref.util import request_uri
 from xml.dom import ValidationErr
+# detect usrl file path 
+from .userdetect import detectUser
 
 from custom_user_model.models import User
 #message show 
 from django.contrib import messages
+# login 
+from django.contrib.auth import authenticate, login, logout 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from vendor.forms import vendorForm
@@ -14,8 +18,23 @@ from userAccount.models import UserProfile
 
 from .forms import UserRgistrationForm
 
-# login 
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required,user_passes_test
+from django.core.exceptions import PermissionDenied
+
+#verify customer vs vender deashboard 
+
+def check_role_venders(user):
+    if user.role==1:
+        return True
+    else:
+        raise PermissionDenied
+def check_role_customer(user):
+    if user.role==2:
+        return True
+    else:
+        raise PermissionDenied
+
+
 
 
 # Create your views here.
@@ -23,7 +42,7 @@ def RegisterUser(request):
      # if already registerUser 
     if request.user.is_authenticated:
         messages.warning(request, 'You are already registerUser !')
-        return redirect('dashboard')
+        return redirect('myaccount')
     elif request.method == 'POST':
         form=UserRgistrationForm(request.POST)
         if form.is_valid():
@@ -52,7 +71,7 @@ def RegisterUser(request):
             user.role=User.CUSTOMER
             user.save() #defule role customer add korlam
             messages.error(request, 'your account has been registerd successfully')
-            return redirect('registrationUser')
+            return redirect('login')
         else:
             print("invalid")
             print(form.errors)
@@ -74,7 +93,7 @@ def RegistrationVendor(request):
          # if already registerUser 
     if request.user.is_authenticated:
         messages.warning(request, 'You are already registerVendor !')
-        return redirect('dashboard')
+        return redirect('myaccount')
     elif request.method=="POST":
         form=UserRgistrationForm(request.POST)
         v_form=vendorForm(request.POST,request.FILES)
@@ -117,7 +136,7 @@ def Login(request):
     # if already login 
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in!')
-        return redirect('dashboard')
+        return redirect('myaccount')
     elif request.method=='POST':
         
         email=request.POST['email']
@@ -128,7 +147,7 @@ def Login(request):
         if user is not None:
             login(request, user)
             messages.error(request, 'successfully login ....select your favorite  food  !')
-            return redirect('dashboard')
+            return redirect('myaccount')
         # Redirect to a success page.
         else:
             print("user is not found ")
@@ -142,7 +161,21 @@ def Logout(request):
     messages.error(request, 'successfully login out  !')
     return redirect('login')
 
+@login_required(login_url='login')
+def Myaccount(request):
+    user=request.user
+    redirectUrl=detectUser(user)
+    return redirect(redirectUrl)
 
-def Dashbord(request):
-    return render(request,'useraccounts/dashboard.html')
+
+@login_required(login_url='login')
+@user_passes_test(check_role_venders)
+def VenderDashbord(request):
+    return render(request,'useraccounts/vendashboard.html')
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_customer)
+def CousDashbord(request):
+    return render(request,'useraccounts/cousdashboard.html')
 

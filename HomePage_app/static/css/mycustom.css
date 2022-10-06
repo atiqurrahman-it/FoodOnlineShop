@@ -13,3 +13,10 @@
   animation-duration: 8s;
   z-index: 99;
 } */
+
+.alert {
+  color: #126a32;
+  background: #9fc6ff;
+  /* -webkit-box-shadow: none; */
+  box-shadow: none;
+}

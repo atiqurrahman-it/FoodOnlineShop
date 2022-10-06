@@ -3,8 +3,9 @@ from tkinter import CASCADE
 from django.db import models
 
 # Create your models here.
+from custom_user_model.models import User
+from userAccount.models import UserProfile
 
-from userAccount.models import User,UserProfile
 
 
 class Vendor(models.Model):

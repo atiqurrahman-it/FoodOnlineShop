@@ -1,11 +1,6 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
-
-
-
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
 
 # Create your models here.
 
@@ -53,7 +48,7 @@ class User(AbstractBaseUser):
     CUSTOMER=2
     ROLE_CHOICE=(
         (Vendor,'Vendor'),
-        (CUSTOMER,'customer'),
+        (CUSTOMER,'Customer'),
     )
     # user= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name=models.CharField(max_length=50)
@@ -94,5 +89,28 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+
+    # dashboard e login e jonno customer or vendor
+    def get_role(self):
+        if self.role==1:
+            userrole="Vendor"
+            
+        elif self.role==2:
+            userrole="customer"
+            
+        # problem show hobe role emty thakle 
+        # return userrole
+
+        try:
+            return userrole
+        except:
+            print("An exception occurred")
+      
+        
+        
+       
+
+
+
 
 
