@@ -10,6 +10,8 @@ urlpatterns = [
     path("myaccount/",views.Myaccount,name='myaccount'),
 
     path('venderdashbord/',views.VenderDashbord,name="venderdashbord"),
-    path('cousdashbord/',views.CousDashbord,name="cousdashbord")
+    path('cousdashbord/',views.CousDashbord,name="cousdashbord"),
+    # email active path 
+    path('activate/<uid>/<token>/',views.activate,name="activate"),
 
 ]

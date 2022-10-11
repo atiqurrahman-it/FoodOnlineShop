@@ -21,6 +21,15 @@ from .forms import UserRgistrationForm
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.core.exceptions import PermissionDenied
 
+#email varification 
+from django.contrib.auth.tokens import default_token_generator
+from django.http import Http404
+from django.utils.http import urlsafe_base64_decode
+
+
+from .email_varification import send_varification_email
+
+
 #verify customer vs vender deashboard 
 
 def check_role_venders(user):
@@ -33,6 +42,7 @@ def check_role_customer(user):
         return True
     else:
         raise PermissionDenied
+
 
 
 
@@ -69,9 +79,16 @@ def RegisterUser(request):
                 
             user=User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
             user.role=User.CUSTOMER
-            user.save() #defule role customer add korlam
-            messages.error(request, 'your account has been registerd successfully')
-            return redirect('login')
+            user.save() # efule role customer add korlam
+
+            # Email Varification 
+            # send_varification_email this is my create def email_varification.py 
+            mail_subject = 'Please activate your account'
+            email_template = 'useraccounts/emails/email_vaification.html'
+            send_varification_email(request, user,mail_subject,email_template)
+
+            messages.error(request, 'your account has been registerd successfully. Send code your email')
+            return redirect('registrationUser')
         else:
             print("invalid")
             print(form.errors)
@@ -85,6 +102,21 @@ def RegisterUser(request):
     }  
     return render(request,'useraccounts/registration.html',data)
 
+
+# Email  varificatin active view 
+def activate(request,uid,token):
+    try:
+        uid=urlsafe_base64_decode(uid).decode()
+        user = User.objects.get(pk=uid)
+    except:
+        raise Http404("No user found ")
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active = True
+        user.save()
+        messages.error(request, 'congratulation your account is activated ')
+        return redirect('homepage')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 

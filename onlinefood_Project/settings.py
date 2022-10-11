@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-from decouple import config
 import os
 from pathlib import Path
-from django.contrib.messages import constants as messages
 
+from decouple import config
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -157,6 +157,16 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
 
 }
+
+#Email configaration for registratin Email varification 
+
+EMAIL_USE_TLS = True  
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_HOST_USER = 'studyquery.check@gmail.com'  
+EMAIL_HOST_PASSWORD = 'wesmzthtvmncdwzi'
+EMAIL_PORT = 587 
+DEFAULT_FROM_EMAIL ='OnlineFood Marketplace <studyquery.check@gmail.com>'
+
 
 
 
