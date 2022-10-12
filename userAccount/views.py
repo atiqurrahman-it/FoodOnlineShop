@@ -1,4 +1,5 @@
-from ast import Pass
+
+from re import U
 from urllib import request
 from wsgiref.util import request_uri
 from xml.dom import ValidationErr
@@ -211,3 +212,66 @@ def VenderDashbord(request):
 def CousDashbord(request):
     return render(request,'useraccounts/cousdashboard.html')
 
+
+# forgot password 
+# send_varification_email def import kora hoiche 
+
+def Forgot_password(request):
+    if request.POST:
+        email=request.POST['email']
+        # if email exisits then conditon ture
+        if User.objects.filter(email=email).exists():
+            # user find out 
+            user=User.objects.get(email__exact=email)
+            # send reset  password email 
+            mail_subject = 'Reset Your password '
+            email_template = 'useraccounts/emails/reset_password_email.html'
+            send_varification_email(request, user,mail_subject,email_template) 
+
+            messages.error(request, 'password reset link has been  send your email !')
+            return redirect('login')
+        else:
+            messages.error(request, 'Account does not exists  !')
+            return redirect('forgot_password')
+
+    return render(request,'useraccounts/forgot_password.html')
+
+
+def reset_password_validate(request,uid,token):
+    try:
+        uid=urlsafe_base64_decode(uid).decode()
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+        raise Http404("No user found ")
+
+    if user is not None and default_token_generator.check_token(user,token):
+        request.session['uid'] = uid
+        messages.info(request, 'Please reset your password')
+        return redirect('reset_password')
+      
+    else:
+        messages.error(request,'This link has been exprired')
+        return redirect('myaccount')
+
+
+
+def Reset_password(request):
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password == confirm_password:
+            pk = request.session.get('uid')
+            user = User.objects.get(pk=pk)
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+            messages.success(request, 'Password reset successful')
+            return redirect('login')
+        else:
+            messages.error(request, 'Password do not match!')
+            return redirect('reset_password')
+    return render(request, 'useraccounts/reset_password.html')
+
+# end forgot password 
