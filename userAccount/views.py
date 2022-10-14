@@ -151,7 +151,7 @@ def RegistrationVendor(request):
             
         else:
             print("Invalid Form ")
-            print(form.error)
+            # print(form.error)
             
     else:
         form=UserRgistrationForm()
