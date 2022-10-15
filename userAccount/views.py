@@ -3,33 +3,29 @@ from re import U
 from urllib import request
 from wsgiref.util import request_uri
 from xml.dom import ValidationErr
-# detect usrl file path 
-from .userdetect import detectUser
 
 from custom_user_model.models import User
 #message show 
 from django.contrib import messages
 # login 
-from django.contrib.auth import authenticate, login, logout 
-from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, user_passes_test
+#email varification 
+from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from django.utils.http import urlsafe_base64_decode
 from vendor.forms import vendorForm
+#import model 
+from vendor.models import Vendor
 
 from userAccount.models import UserProfile
 
-from .forms import UserRgistrationForm
-
-from django.contrib.auth.decorators import login_required,user_passes_test
-from django.core.exceptions import PermissionDenied
-
-#email varification 
-from django.contrib.auth.tokens import default_token_generator
-from django.http import Http404
-from django.utils.http import urlsafe_base64_decode
-
-
 from .email_varification import send_varification_email
-
+from .forms import UserRgistrationForm
+# detect usrl file path 
+from .userdetect import detectUser
 
 #verify customer vs vender deashboard 
 
@@ -204,6 +200,7 @@ def Myaccount(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_venders)
 def VenderDashbord(request):
+    # vendor  data    data_processors file theke access paiteche 
     return render(request,'useraccounts/vendashboard.html')
 
 

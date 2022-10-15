@@ -22,6 +22,10 @@ class UserProfile(models.Model):
     create_at=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now_add=True)
 
+    def full_adderss(self):
+        return f'{self.address_line1},{self.address_line2}'
+
+
     def __str__(self):
         return self.user.email
 
