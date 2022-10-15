@@ -1,11 +1,11 @@
 from distutils.command.upload import upload
 from tkinter import CASCADE
-from django.db import models
 
 # Create your models here.
 from custom_user_model.models import User
+from django.db import models
+from userAccount.email_varification import send_notification
 from userAccount.models import UserProfile
-
 
 
 class Vendor(models.Model):
@@ -19,4 +19,32 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.vendor_name
+
+
+    #  admin panel theke vendor er  save button e click korle then run hobe  
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            # Update
+            orig = Vendor.objects.get(pk=self.pk)
+            if orig.is_approved != self.is_approved:
+                mail_template = 'useraccounts/emails/admin_approval_email.html'
+                context = {
+                    'user': self.user,
+                    'is_approved': self.is_approved,
+                    'to_email': self.user.email,
+                }
+            
+                if self.is_approved == True:
+                    # Send notification email 
+                    # admin approve korle vendor er  kache email jabe 
+                    mail_subject = "Congratulations! Your restaurant has been approved."
+                    send_notification(mail_subject, mail_template, context)
+
+                else:
+                    # Send notification email
+                    mail_subject = "We're sorry! You are not eligible for publishing your food menu on our marketplace."
+                    send_notification(mail_subject, mail_template, context)
+
+        return super(Vendor, self).save(*args, **kwargs)
+
 
