@@ -3,8 +3,12 @@
 {% block title %} {% endblock %}
 
 {% block main_contant %}
+<div class="container">
+        <!-- load message   -->
+        {% include 'message_show.html' %}
 
-<h1> Prifile atiqur  Rahman</h1>
+</div>
+
 <!-- Main Section Start -->
 <div class="main-section">
         <!-- load cover   -->
@@ -17,116 +21,169 @@
                     <!-- load sidebar vender  -->
                     {% include 'include_page/v_sidebar.html' %}
                 </div>
-
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                    <div class="user-dashboard loader-holder">
+                    <div class="loader-holder">
                         <div class="user-holder">
-                           
-
+                            <h5 class="text-uppercase">Manage Your Restaurant</h5>
+                        </div> 
+                    </div>
+                    <br>
+                    <!-- My Restaurants Form Start -->
+                    <form action="{% url 'vprofile' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-fields-set">
+                <ul>
+                    <li>
+                        <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row">
-                                    <div class="element-title has-border right-filters-row">
-                                        <h5>Recent Orders</h5>
-                                        <div class="right-filters row pull-right">
-                                            <div class="col-lg-6 col-md-6 col-xs-6">
-                                                <div class="input-field">
-                                                    <select class="chosen-select-no-single">
-                                                        <option selected="selected" value="">Select Orders Status</option>
-                                                        <option value="Processing">Processing</option>
-                                                        <option value="Cancelled">Cancelled</option>
-                                                        <option value="Completed">Completed</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 col-md-6 col-xs-6">
-                                                <div class="input-field">
-                                                    <i class="icon-angle-down"></i>
-                                                    <input type="text" data-id="daterange223" id="daterange" value="" placeholder="Select Date Range">
-                                                    <script>
-                                                        $(function () {
-                                                            $('input[data-id="daterange223"]').daterangepicker({
-                                                                opens: 'left'
-                                                            }, function (start, end, label) {
-                                                                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <div class="drag-list">
+                                            <div class="item-thumb profile_pic">
+                                                {% if profile.profile_picture %}
+                                                <img class="thumbnail" src="{{ profile.profile_picture.url}}" alt="Profile Picture">
+                                                {% else %}
+                                                <img class="thumbnail bg_img" src="{% static 'images/default-profile.PNG' %}" alt="Profile Picture">
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="user-orders-list">
-                                        <div class="responsive-table">
-                                            <ul class="table-generic">
-                                                <li class="order-heading-titles">
-                                                    <div>Order id</div>
-                                                    <div>Date</div>
-                                                    <div>Total Price</div>
-                                                    <div>Charges</div>
-                                                    <div>Received</div>
-                                                    <div>Status</div>
-                                                   
-                                                </li>
-                                            
-                                                <li class="order-heading-titles">
-                                                    <div><a href="#" data-toggle="modal" data-target="#order-det-22606">order-226061</a></div>
-                                                    <div>Apr 9,2020</div>
-                                                    <div>£ 38.99</div>
-                                                    <div>£ 3.90</div>
-                                                    <div>£ 35.09</div>
-                                                    <div><span class="order-status" style="background-color: #047a06;">Completed</span></div>
-                                                </li>
-
-                                          
-                                                <li class="order-heading-titles">
-                                                    <div><a href="#" data-toggle="modal" data-target="#order-det-22606">order-22493</a></div>
-                                                    <div>Apr 2,2020</div>
-                                                    <div>£ 28.24</div>
-                                                    <div>£ 2.82</div>
-                                                    <div>£ 25.42</div>
-                                                    <div><span class="order-status" style="background-color: #047a06;">Completed</span></div>
-                                                </li>
-
-                                            </ul>
-
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                        <div class="text-holder">
+                                            <label>Update Profile Picture</label>
+                                            <div class="upload-gallery">
+                                                {{profile_form.profile_picture}}
+                                            </div>
                                         </div>
-
-                                        
-                                       
-                                        
-                                        <script>
-                                            (function ($) {
-                                                $(document).ready(function () {
-                                                    $(".order-detail .modal-dialog .modal-content").mCustomScrollbar({
-                                                        setHeight: 724,
-                                                        theme: "minimal-dark",
-                                                        mouseWheelPixels: 100
-                                                    });
-                                                });
-                                            })(jQuery);
-                                        </script>
+                                        <label class="text-danger">{{ profile_form.profile_picture.errors }}</label>
                                     </div>
                                 </div>
                             </div>
-                            <ul class="pagination">
-                                <li class="active"><a>1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><span class="page-numbers dots">…</span></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">Next </a></li>
-                            </ul>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <div class="drag-list">
+                                            <div class="item-thumb profile_pic">
+                                                {% if profile.cover_picture %}
+                                                <img class="thumbnail" src="{{ profile.cover_picture.url}}" alt="Profile Picture">
+                                                {% else %}
+                                                <img class="thumbnail bg_img" src="{% static 'images/default-cover.PNG' %}" alt="Profile Picture">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                        <div class="text-holder">
+                                            <label> Update Cover Picture </label>
+                                            <div class="upload-gallery">
+                                                {{profile_form.cover_picture}}
+                                            </div>
+                                        </div>
+                                        <label class="text-danger">{{ profile_form.cover_picture.errors }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <div class="drag-list">
+                                            <div class="item-thumb profile_pic">
+                                                {% if vendor.vedor_license %}
+                                                <img class="thumbnail" src="{{ vendor.vedor_license.url}}" alt="Profile Picture">
+                                                {% else %}
+                                                <img class="thumbnail bg_img" src="{% static 'images/default-profile.PNG' %}" alt="Profile Picture">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                        <div class="text-holder">
+                                            <label> Update License </label>
+                                            <div class="upload-gallery">
+                                                {{vendor_form.vedor_license}}
+                                            </div>
+                                        </div>
+                                        <label class="text-danger">{{ vendor_form.vedor_license.errors }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            			
+
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="field-holder">
+                                    <label>Restaurant name *</label>
+                                    {{vendor_form.vendor_name}}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Adderss Line1  </label>
+										{{profile_form.address_line1}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Adderss Line2  </label>
+										{{profile_form.address_line2}}
+                                    </div>
+                                </div>
+                              
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Country *</label>
+										{{profile_form.country}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>State *</label>
+                                        {{profile_form.state}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>City *</label>
+                                        {{profile_form.city}}
+                                    </div>
+                                </div>
+                                     
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Pin Code *</label>
+                                        {{profile_form.pin_code}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Latitude *</label>
+                                        {{profile_form.latitude}}
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="field-holder">
+                                        <label>Longitude *</label>
+                                        {{profile_form.longitude}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="field-holder">
+                            <div class="payment-holder input-button-loader">
+                                <input type="submit" value="Update Restaurant">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
         </div>
     </div>
+ </div>
 </div>
 <!-- Main Section End -->
 

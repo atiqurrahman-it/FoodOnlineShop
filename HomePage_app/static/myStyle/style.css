@@ -535,7 +535,7 @@ img.aligncenter {
 /* Ul Ol Li typo */
 li {
   line-height: 28px;
-  list-style: disc inside none;
+  list-style: none;
 }
 ul ul {
   margin-left: 20px;
@@ -3414,6 +3414,7 @@ a.slicknav_btn.slicknav_open .slicknav_icon-bar:first-child {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   width: 215px;
 }
+
 .blog .post-options {
   margin: 0;
   padding: 0;

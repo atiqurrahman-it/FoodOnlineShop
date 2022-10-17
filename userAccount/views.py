@@ -19,8 +19,8 @@ from django.utils.http import urlsafe_base64_decode
 from vendor.forms import vendorForm
 #import model 
 from vendor.models import Vendor
-
 from userAccount.models import UserProfile
+
 
 from .email_varification import send_varification_email
 from .forms import UserRgistrationForm
