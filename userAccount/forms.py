@@ -32,9 +32,8 @@ class UserPrifileForm(forms.ModelForm):
     cover_picture = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}),validators=[allow_only_images_validator])
 
     # just read only not edit this cloum 
-
-    latitude=forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    longitude=forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    # latitude=forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    # longitude=forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
 
     class Meta:
         model=UserProfile
@@ -43,11 +42,11 @@ class UserPrifileForm(forms.ModelForm):
 
     # just read only not edit this cloum 
     # ek vabe korle hobe ...ei khane opor er niyome korchi line 33
-    # def __init__(self, *args, **kwargs):
-    #     super(UserPrifileForm, self).__init__(*args, **kwargs)
-    #     for field in self.fields:
-    #         if field=='latitude' or  field=='longitude':
-    #             self.fields[field].widget.attrs['readonly'] = 'readonly'
+    def __init__(self, *args, **kwargs):
+        super(UserPrifileForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            if field=='latitude' or  field=='longitude':
+                self.fields[field].widget.attrs['readonly'] = 'readonly'
 
         
 

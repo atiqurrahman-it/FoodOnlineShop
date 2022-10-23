@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'custom_user_model',
     'userAccount',
     'vendor',
+    'menu',
 ]
 
 # create user mode for section

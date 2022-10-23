@@ -1,18 +1,16 @@
-from django.shortcuts import render,get_object_or_404,redirect
-
 # Create your views here.
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import get_object_or_404, redirect, render
 # import from
 from userAccount.forms import UserPrifileForm
-from vendor.forms import vendorForm
+from userAccount.models import UserProfile
+from userAccount.views import check_role_venders
 
+from vendor.forms import vendorForm
 # import model 
 from vendor.models import Vendor
-from userAccount.models import UserProfile
 
-from django.contrib.auth.decorators import login_required, user_passes_test
-from userAccount.views import check_role_venders
 
 @login_required(login_url='login')
 @user_passes_test(check_role_venders)
