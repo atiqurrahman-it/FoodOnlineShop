@@ -16,7 +16,6 @@ from userAccount.views import check_role_venders
 
 @login_required(login_url='login')
 @user_passes_test(check_role_venders)
-
 def Vprifile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     vendor = get_object_or_404(Vendor, user=request.user)

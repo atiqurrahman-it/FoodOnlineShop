@@ -9,8 +9,7 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
     profile_picture=models.ImageField(upload_to='user/profile_pictuer',blank=True,null=True)
     cover_picture=models.ImageField(upload_to='user/cover_picture',blank=True,null=True)
-    address_line1=models.CharField(max_length=200, blank=True,null=True)
-    address_line2=models.CharField(max_length=200,blank=True,null=True)
+    address=models.CharField(max_length=200, blank=True,null=True)
     country=models.CharField(max_length=30,blank=True,null=True)
     state=models.CharField(max_length=20,blank=True,null=True)
     city=models.CharField(max_length=20,blank=True,null=True)
@@ -22,8 +21,8 @@ class UserProfile(models.Model):
     create_at=models.DateTimeField(auto_now_add=True)
     modified_at=models.DateTimeField(auto_now_add=True)
 
-    def full_adderss(self):
-        return f'{self.address_line1},{self.address_line2}'
+    # def full_adderss(self):
+    #     return f'{self.address_line1},{self.address_line2}'
 
 
     def __str__(self):
