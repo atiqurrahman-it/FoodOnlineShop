@@ -6,14 +6,18 @@ from .models import Category, FoodItem
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    # auto slug filedup by prepopulated_fields 
     prepopulated_fields = {'slug': ('category_name',)}
     list_display = ('category_name', 'vendor', 'updated_at')
+    # search_fields e direct relation filed er name user korle eror show kore
+    # like vendor user korle ..... 
     search_fields = ('category_name', 'vendor__vendor_name')
 
 admin.site.register(Category, CategoryAdmin)
 
 
 class FoodItemAdmin(admin.ModelAdmin):
+    # auto slug filedup by prepopulated_fields 
     prepopulated_fields = {'slug': ('food_title',)}
     list_display = ('food_title', 'category', 'vendor', 'price', 'is_available', 'updated_at')
     search_fields = ('food_title', 'category__category_name', 'vendor__vendor_name', 'price')

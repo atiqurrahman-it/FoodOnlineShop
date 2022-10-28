@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load  static %}
+{% block title %} {% endblock %}
+
+{% block main_contant %}
+<div class="container">
+        <!-- load message   -->
+        {% include 'message_show.html' %}
+
+</div>
+
+<!-- Main Section Start -->
+<div class="main-section">
+    <!-- load cover   -->
+    {% include 'include_page/cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- load sidebar vender  -->
+                    {% include 'include_page/v_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="loader-holder">
+                        <div class="user-holder">
+                            <h5 class="text-uppercase">Build  Your Food Menu </h5>
+                        </div> 
+                    </div>
+                 
+                    <hr>
+                    <h6>  menu categories</h6>
+
+                    <a href="#" class='btn btn-success float-right  add-btn'> <i class="fa fa-plus" aria-hidden="true"> </i> Add Food </a>
+                    <a href="#" class='btn btn-info float-right  add-btn ml-2'><i class="fa fa-plus" aria-hidden="true"></i> Add Category </a>
+
+                    <!-- My Restaurants Form Start -->
+                    <table class="table">
+                    
+                
+
+                        <tbody>
+                          {% if categories %}
+                          {% for cat in categories %}
+                          <tr>
+                            <th class="text-left">{{forloop.counter}}</th>
+                            <td class="text-left">
+                                <a href=""><p class="mb-0 font_weight">{{cat.category_name}}</p> 
+                                <small class="text-muted"> {{cat.description}}</small></a>
+                               
+                            </td>
+                            <td>
+                                <i class="fa fa-pencil" aria-hidden="true"> </i> &nbsp;
+                                <i class="fa fa-trash text-danger" aria-hidden="true"> </i>
+                                
+
+                            </td>
+                           
+                          </tr>
+                          {% endfor %}
+                        {% endif %}
+
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+{% endblock %}
+
+

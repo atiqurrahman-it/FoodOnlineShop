@@ -11,6 +11,7 @@ urlpatterns = [
     path('',userAccountviews.VenderDashbord,name='vendor'),
 
 
-    path('profile',views.Vprifile,name='vprofile')
+    path('profile',views.Vprifile,name='vprofile'),
+    path('menue-builder',views.menue_builder,name='menue_builder')
     
 ]

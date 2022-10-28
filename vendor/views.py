@@ -10,6 +10,7 @@ from userAccount.views import check_role_venders
 from vendor.forms import vendorForm
 # import model 
 from vendor.models import Vendor
+from menu.models import Category
 
 
 @login_required(login_url='login')
@@ -42,3 +43,20 @@ def Vprifile(request):
   
 
     return render(request,'vendor/profile.html',data)
+
+
+def menue_builder(request):
+    #individual category show 
+    try:
+        vendor=Vendor.objects.get(user=request.user)
+        category=Category.objects.filter(vendor=vendor)
+    except:
+        user:None
+
+  
+    data={
+        "categories":category,
+    }
+    return render(request,'vendor/menue_builder.html',data)
+
+    
