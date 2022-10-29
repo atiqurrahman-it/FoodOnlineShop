@@ -1,5 +1,7 @@
 from django.urls import path
 
+from menu.models import FoodItem
+
 from . import views
 
 # userAccount theke include kora hoiche 
@@ -12,6 +14,9 @@ urlpatterns = [
 
 
     path('profile',views.Vprifile,name='vprofile'),
-    path('menue-builder',views.menue_builder,name='menue_builder')
+    path('menue-builder',views.menue_builder,name='menue_builder'),
+    path('menue-builder/category/<int:id>/',views.FoodItemByCategory,name='FoodItemByCategory'),
+    path('menue-builder/category/add',views.add_category,name='add_category')
+    
     
 ]

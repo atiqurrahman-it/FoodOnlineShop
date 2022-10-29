@@ -28,21 +28,22 @@
                     </div>
                  
                     <hr>
-                    <h6>  menu categories</h6>
+                    <h6> Category : <span class="text-uppercase text-success"> {{category}}</span></h6>
 
-                    <a href="#" class='btn btn-success float-right  add-btn'> <i class="fa fa-plus" aria-hidden="true"> </i> Add Food </a>
-                    <a href="{% url 'add_category' %}" class='btn btn-info float-right  add-btn ml-2'><i class="fa fa-plus" aria-hidden="true"></i> Add Category </a>
+                    
 
                     <!-- My Restaurants Form Start -->
+                    {% if fooditems %}
                     <table class="table">
                         <tbody>
-                          {% if categories %}
-                          {% for cat in categories %}
+                         
+                          {% for food in fooditems %}
                           <tr class="table_customaization">
                             <td class="text-left">{{forloop.counter}}</td>
+                            <td class="text-left"><img src="{{food.image.url}}" alt="imge not found " width="40"></td>
                             <td class="text-left">
-                                <a href="{% url 'FoodItemByCategory' cat.pk %}"><p class="mb-0 font_weight">{{cat.category_name}}</p> 
-                                <small class="text-muted"> {{cat.description}}</small></a>
+                                <a href=""><p class="mb-0 font_weight">{{food.food_title}}</p> 
+                                <small class="text-muted"> {{food.description}}</small></a>
                                
                             </td>
                             <td>
@@ -53,13 +54,21 @@
                             </td>
                         </tr>
                         {% endfor %}
-                        {% endif %}
                     </tbody>
                 </table>
+                {% else %}
+                <h6 class="text-center"> No Food items Found </h6>
+                <div class="text-center">
+                    <a href="#" class='btn btn-success'> <i class="fa fa-plus" aria-hidden="true"> </i> Add Food </a>
+                </div>
+
+                {% endif %}
+
+                    
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Main Section End -->
 

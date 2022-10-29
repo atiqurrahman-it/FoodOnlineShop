@@ -8,9 +8,10 @@ from userAccount.models import UserProfile
 from userAccount.views import check_role_venders
 
 from vendor.forms import vendorForm
+from menu.forms import CategoryForm
 # import model 
 from vendor.models import Vendor
-from menu.models import Category
+from menu.models import Category,FoodItem
 
 
 @login_required(login_url='login')
@@ -43,12 +44,18 @@ def Vprifile(request):
   
 
     return render(request,'vendor/profile.html',data)
+#common query gula function moddome likhte pari
+# same query repited korte na hoi
+
+def get_vendor(request):
+    vendor=Vendor.objects.get(user=request.user)
+    return vendor
 
 
 def menue_builder(request):
     #individual category show 
     try:
-        vendor=Vendor.objects.get(user=request.user)
+        vendor=get_vendor(request) # import line 49
         category=Category.objects.filter(vendor=vendor)
     except:
         user:None
@@ -58,5 +65,26 @@ def menue_builder(request):
         "categories":category,
     }
     return render(request,'vendor/menue_builder.html',data)
+
+
+def FoodItemByCategory(request,id):
+    vendor=get_vendor(request)
+    category=get_object_or_404(Category,pk=id)
+    fooditems=FoodItem.objects.filter(category=category,vendor=vendor)
+    print(fooditems)
+    data={
+        "fooditems":fooditems,
+        "category":category,
+    }
+
+    return render(request,'vendor/fooditems_by_category.html',data)
+
+def add_category(request):
+    form=CategoryForm()
+    data={
+        "form":form,
+    }
+    return render(request,'vendor/add_category.html',data)
+
 
     
