@@ -16,7 +16,17 @@ urlpatterns = [
     path('profile',views.Vprifile,name='vprofile'),
     path('menue-builder',views.menue_builder,name='menue_builder'),
     path('menue-builder/category/<int:id>/',views.FoodItemByCategory,name='FoodItemByCategory'),
-    path('menue-builder/category/add',views.add_category,name='add_category')
+    
+    #Category CURD
+    path('menue-builder/category/add',views.add_category,name='add_category'),
+    path('menu-builder/category/edit/<int:id>/',views.edit_category,name='edit_category'),
+    path('menu-builder/category/delete/<int:id>/', views.delete_category, name='delete_category'),
+
+    #FoodItem CURD
+    path('menue-builder/food/add',views.add_food,name='add_food'),
+    path('menu-builder/food/edit/<int:id>/',views.edit_food,name='edit_food'),
+    path('menu-builder/food/delete/<int:id>/', views.delete_food, name='delete_food'),
+
     
     
 ]
