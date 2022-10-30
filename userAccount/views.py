@@ -139,13 +139,14 @@ def RegistrationVendor(request):
 
             vendor=v_form.save(commit=False)
             vendor.user=user
+            
             Userprofile=UserProfile.objects.get(user=user)
             vendor.user_profil=Userprofile
 
             from django.template.defaultfilters import slugify
             vendor_name = v_form.cleaned_data['vendor_name']
             vendor.save() # id create 
-            vendor.slug = slugify(vendor_name)+'-'+str(vendor.id) # chicken-15
+            vendor.vendor_slug = slugify(vendor_name)+'-'+str(vendor.id) # chicken-15
             
             vendor.save()
              # user ei user ta  active hobe 

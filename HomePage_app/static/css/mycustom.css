@@ -58,3 +58,8 @@ select {
   border: none !important;
   line-height: 2.5;
 }
+
+.marketplace_btn {
+  margin: 10px;
+  margin-top: 19px;
+}
