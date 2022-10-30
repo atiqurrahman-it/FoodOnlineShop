@@ -461,6 +461,11 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <div class="login-option">
+
+          <a class="btn btn-outline-danger text-uppercase font_weight-bold" href="{% url 'marketplace' %}">Marketplace</a> 
+          </div>
+          
           {% if user.is_authenticated %}
           <div class="login-option">
             <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'myaccount' %}">My Account </a> 
@@ -469,12 +474,10 @@
 
           {% else %}
           <div class="login-option">
-                <a class="cs-color cs-popup-joinus-btn login-popup" style="margin-right: auto;" href="{% url 'login' %}">Login</a> 
-                <a  class="cs-color cs-popup-joinus-btn login-popup" style="margin-left: auto;" href="{% url 'registrationUser' %}">/ Register</a> 
+            <a class="cs-color cs-popup-joinus-btn login-popup" style="margin-right: auto;" href="{% url 'login' %}">Login</a> 
+            <a  class="cs-color cs-popup-joinus-btn login-popup" style="margin-left: auto;" href="{% url 'registrationUser' %}">/ Register</a> 
               
-           <a class="get-start-btn" href="{% url 'registrationVendor' %}">
-              Register Restaurant
-            </a>
+            <a class="get-start-btn" href="{% url 'registrationVendor' %}"> Register Restaurant </a>
           </div>
           {% endif %}
         </div>

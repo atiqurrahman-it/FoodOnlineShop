@@ -111,7 +111,7 @@ def activate(request,uid,token):
         user.is_active = True
         user.save()
         messages.error(request, 'congratulation your account is activated ')
-        return redirect('homepage')
+        return redirect('login')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -141,8 +141,20 @@ def RegistrationVendor(request):
             vendor.user=user
             Userprofile=UserProfile.objects.get(user=user)
             vendor.user_profil=Userprofile
+
+            from django.template.defaultfilters import slugify
+            vendor_name = v_form.cleaned_data['vendor_name']
+            vendor.save() # id create 
+            vendor.slug = slugify(vendor_name)+'-'+str(vendor.id) # chicken-15
+            
             vendor.save()
-            messages.error(request, 'your account has been registerd successfully')
+             # user ei user ta  active hobe 
+            # Email Varification 
+            # send_varification_email this is my create def email_varification.py 
+            mail_subject = 'Please activate your account'
+            email_template = 'useraccounts/emails/email_vaification.html'
+            send_varification_email(request, user,mail_subject,email_template)
+            messages.error(request, 'your account has been registerd successfully! please check your email ')
           
             
         else:

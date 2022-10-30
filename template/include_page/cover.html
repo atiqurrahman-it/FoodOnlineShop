@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="page-section restaurant-detail-image-section" {% if vendor.user_profil.cover_picture %} style=" background: url({{ vendor.user_profil.cover_picture.url }}) no-repeat scroll 0 0 / cover;" {%endif %}>
+<div class="page-section restaurant-detail-image-section" {% if vendor.user_profil.cover_picture %} style=" background: url({{ vendor.user_profil.cover_picture.url }}) no-repeat scroll 0 0 / cover;" {% else %}  style=" background: url({% static 'images/default-cover.PNG' %}) no-repeat scroll 0 0 / cover; {% endif %}>
     <!-- Container Start -->
     <div class="container">
         <!-- Row Start -->
@@ -16,7 +16,7 @@
                             </figure>
                             {% else %}
                             <figure>
-                                <img src="#" alt="Profle not foud ">
+                                <img src="{% static 'images/default-profile.PNG' %}" alt="Profle inage not found ">
                             </figure>
                             {% endif %}
 

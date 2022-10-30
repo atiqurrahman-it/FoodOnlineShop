@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #my create apps
+    # my create apps
     'HomePage_app',
     'custom_user_model',
     'userAccount',
     'vendor',
     'menu',
+    'marketplace'
 ]
 
 # create user mode for section
@@ -165,10 +166,10 @@ MESSAGE_TAGS = {
 
 EMAIL_USE_TLS = True  
 EMAIL_HOST = 'smtp.gmail.com'  
-EMAIL_HOST_USER = 'studyquery.check@gmail.com'  
-EMAIL_HOST_PASSWORD = 'wesmzthtvmncdwzi'
+EMAIL_HOST_USER = 'onlinelifestyle.bd@gmail.com'  
+EMAIL_HOST_PASSWORD = 'hdyczwmrziufveio'
 EMAIL_PORT = 587 
-DEFAULT_FROM_EMAIL ='OnlineFood Marketplace <studyquery.check@gmail.com>'
+DEFAULT_FROM_EMAIL ='OnlineFood Marketplace <onlinelifestyle.bd@gmail.com>'
 
 
 

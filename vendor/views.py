@@ -61,7 +61,7 @@ def get_vendor(request):
 def menue_builder(request):
     #individual category show 
     try:
-        vendor=get_vendor(request) # import line 49
+        vendor=get_vendor(request) # import line 54
         category=Category.objects.filter(vendor=vendor).order_by('created_at')
     except:
         user:None
@@ -181,6 +181,11 @@ def add_food(request):
             print(form.errors)
     else: 
          form =FoodItemForm()
+         # add food er somoy jeno all user er category show na kore 
+         # je login thakbe sudu or category show korbe 
+         # FoodItem import menu app theke
+         # get_vendor() import 54 line 
+         form.fields['category'].queryset=Category.objects.filter(vendor=get_vendor(request))
 
     data={
         "form":form,
@@ -207,6 +212,12 @@ def edit_food(request,id=None):
             print(form.errors)
     else:
         form = FoodItemForm(instance=fooditem)
+         # add food er somoy jeno all user er category show na kore 
+         # je login thakbe sudu or category show korbe 
+         # FoodItem import menu app theke
+         # get_vendor() import 54 line 
+        form.fields['category'].queryset=Category.objects.filter(vendor=get_vendor(request))
+
     data={
         "form":form,
         "fooditem":fooditem,
