@@ -1,0 +1,599 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Vendor Datails {% endblock %}
+
+{% block main_contant %}
+<!-- Main Section Start -->
+<div class="main-section">
+    <div class="page-section restaurant-detail-image-section" {% if vendor.user_profil.cover_picture %} style=" background: url({{ vendor.user_profil.cover_picture.url }}) no-repeat scroll 0 0 / cover;" {% else %}  style=" background: url({% static 'images/default-cover.PNG' %}) no-repeat scroll 0 0 / cover; {% endif %}>
+        <!-- Container Start -->
+        <div class="container">
+            <!-- Row Start -->
+            <div class="row">
+                <!-- Column Start -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="company-info-detail">
+                        <div class="company-info">
+                            <div class="img-holder">
+                                {% if vendor.user_profil.profile_picture %}
+                                <figure>
+                                    <img src="{{ vendor.user_profil.profile_picture.url }}" alt="Profle not foud ">
+                                </figure>
+                                {% else %}
+                                <figure>
+                                    <img src="{% static 'images/default-profile.PNG' %}" alt="Profle inage not found ">
+                                </figure>
+                                {% endif %}
+
+                               
+                            </div>
+                            <div class="text-holder">
+                                <div class="rating-star">
+                                    <span class="rating-box" style="width: 100%;"></span>
+                                </div>
+                                <span class="reviews">(1 Reviews)</span>
+                                <span class="restaurant-title">{{vendor.vendor_name}}</span>
+                                <div class="text">
+                                    {% if vendor.user_profil.address %}
+                                    <i class="icon-location"></i>
+                                    <p> {{ vendor.user_profil.address}}</p>
+                                    {% endif %}
+                                </div>
+
+                                
+
+                            </div>
+                        </div>
+                        <div class="delivery-timing reviews-sortby">
+                            <div class="text">
+                                <i class="icon-motorcycle"></i>
+                                <p>
+                                    Delivery fee: £10.00<span>
+                                        Min Order : £10.00 Max Order : £50.00</span>
+                                </p>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="#" class="reviews-sortby-active">
+                                        <span>Today :</span>
+                                        11:00 am - 11:00 pm <i class="icon-chevron-small-down"></i>
+                                    </a>
+                                    <ul class="delivery-dropdown">
+                                        <li><a href="#"><span class="opend-day">Monday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Tuesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Wednesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Thursday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Friday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Saturday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                                    pm</span></a></li>
+                                        <li><a href="#"><span class="opend-day">Sunday</span> <span class="opend-time close-day"><small>:</small>Closed</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column End -->
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+
+    <div class="page-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 sticky-sidebar">
+                    <div class="filter-toggle">
+                        <span class="filter-toggle-text">Categories By</span><i class="icon-chevron-down"></i>
+                    </div>
+                    <div class="filter-wrapper">
+                        <div class="categories-menu">
+                            <h6><i class="icon-restaurant_menu"></i>Categories</h6>
+                            <ul class="menu-list">
+                                {% for category in categories%}
+                                <li class="active"><a href="#" class="menu-category-link"> {{category.category_name}} </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-9 col-xs-12">
+                    <div class="tabs-holder horizontal">
+                        <ul class="stickynav-tabs nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Menu</a></li>
+                            <li><a data-toggle="tab" href="#menu1"><i class="icon- icon-textsms"></i>Reviews
+                                    (1)</a></li>
+                            <li><a data-toggle="tab" href="#menu2"><i class="icon- icon-food"></i>Book a Table
+                                </a></li>
+                            <li><a data-toggle="tab" href="#menu3"><i class="icon- icon-info3"></i>Restaurant
+                                    Info</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div class="menu-itam-holder">
+                                    <div class="field-holder sticky-search">
+                                        <input id="menu-srch-6272" data-id="6272" class="input-field dev-menu-search-field" type="text" placeholder="Search food item">
+                                    </div>
+                                    {% for category in categories%}
+                                    <div id="menu-item-list-6272" class="menu-itam-list">
+                                        <div class="element-title" id="menu-category-0">
+                                            <h5 class="text-color">{{category.category_name}}</h5>
+                                            <span>{{category.description}}</span>
+                                        </div>
+                                        <ul>
+                                            {% for catefory_all_items in single_vendor_all_itemls %}
+                                              {% for food in catefory_all_items %}
+                                               {% if food.category == category %}
+
+                                            <li>
+                                                <div class="image-holder"> <img src="{{food.image.url}}" alt="IMG NOT FOUND "></div>
+                                                <div class="text-holder">
+                                                    <h6>{{food.food_title}}</h6>
+                                                    <span>{{food.description}}</span>
+                                                </div>
+                                                <div class="price-holder">
+                                                    <span class="price">£{{food.price}}</span>
+
+                                                    <a href="#" class="decrease_cart" style="margin-right:28px;"><i class="icon-minus text-color"></i></a>
+                                                    <label id="qty" style="font-size: 13px;"> 0 </label>
+
+                                                    <a href="#" class="add_to_cart"><i class="icon-plus4 text-color"></i></a>
+
+
+                                                </div>
+                                            </li>
+                                            {% endif  %}
+                                            {% endfor  %}
+
+                                            {% endfor %}
+                                        </ul>
+                                                                     
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <div class="reviews-holder">
+                                    <div class="add-new-review-holder" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="elements-title">
+                                                    <h3>Rate and Write a Review</h3>
+                                                    <a href="#" class="close-post-new-reviews-btn">Close</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">Please login
+                                                in order to post review.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reviwes-restaurant-holder">
+                                        <div class="over-all-rating-holder">
+                                            <div class="overall-ratings-container">
+                                                <div class="overall-rating">
+                                                    <h6>Customer Reviews For Food Bakery</h6>
+                                                    <ul class="reviews-box">
+                                                        <li>
+                                                            <em>5.0 </em>
+                                                            <div class="rating-star">
+                                                                <span class="rating-box" style="width: 100%;"></span>
+                                                            </div>
+                                                            <span class="reviews-count">(based on 1
+                                                                reviews)</span>
+                                                        </li>
+                                                        <li>
+                                                            <div class="icon-holder"><i class="icon-smile"></i>
+                                                            </div>
+                                                            <p><span>100%</span> of diners recommend this
+                                                                restaurant
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="ratings-summary-container">
+                                                <div class="rating-summary">
+                                                    <h5>Rating summary</h5>
+                                                    <ul>
+                                                        <li>
+                                                            <span class="review-category">Service</span>
+                                                            <div class="rating-star">
+                                                                <span class="rating-box" style="width:100%"></span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span class="review-category">Quality</span>
+                                                            <div class="rating-star">
+                                                                <span class="rating-box" style="width:100%"></span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span class="review-category">Value</span>
+                                                            <div class="rating-star">
+                                                                <span class="rating-box" style="width:100%"></span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="review-listing">
+                                            <div class="elements-title">
+                                                <h5>Customer Reviews For Restaurant Demo <span>1</span></h5>
+                                                <div class="sort-by">
+                                                    <span class="ajax-loader-sorty-by" style="display: none;">
+                                                        <img src="assets/images/ajax-loader.gif" alt=""></span>
+                                                    <ul class="reviews-sortby">
+                                                        <li>
+                                                            <span class="active-sort">Newest Reviews</span>
+                                                            <div class="reviews-sort-dropdown">
+                                                                <form>
+                                                                    <div class="input-reviews">
+                                                                        <div class="radio-field">
+                                                                            <input name="review" id="check-1" type="radio" value="newest" checked="checked">
+                                                                            <label for="check-1">Newest
+                                                                                Reviews</label>
+                                                                        </div>
+                                                                        <div class="radio-field">
+                                                                            <input name="review" id="check-2" type="radio" value="highest">
+                                                                            <label for="check-2">Highest
+                                                                                Rating</label>
+                                                                        </div>
+                                                                        <div class="radio-field">
+                                                                            <input name="review" id="check-3" type="radio" value="lowest">
+                                                                            <label for="check-3">Lowest
+                                                                                Rating</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <ul class="review-restaurant">
+                                                <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                                    <div class="list-holder ">
+                                                        <div class="review-text">
+                                                            <div class="review-title">
+                                                                <h6>: Best Food </h6>
+                                                                <div class="rating-holder">
+                                                                    <div class="rating-star">
+                                                                        <span style="width: 100%;" class="rating-box"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <em class="review-date">25 Apr 2018</em>
+                                                            <p>A wonderfull experience. </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                                    <div class="list-holder ">
+                                                        <div class="review-text">
+                                                            <div class="review-title">
+                                                                <h6>: Best food </h6>
+                                                                <div class="rating-holder">
+                                                                    <div class="rating-star">
+                                                                        <span style="width: 100%;" class="rating-box"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <em class="review-date">25 Apr 2018</em>
+                                                            <p>I had great food the other day </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <div class="booking-info-sec">
+                                    <form name="booking-form" id="booking-form" class="booking-form" method="post">
+                                        <div class="row">
+                                            <div class="booking-info">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <h5>Book This Restaurant</h5>
+                                                            <p class="booking-desc">All kinds of dining
+                                                                experiences
+                                                                are waiting to be discovered. Check out the best
+                                                                restaurants and Book Using following Form.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon"><i class="icon icon-user"></i><input type="text" placeholder="First Name" class="input-field" id="first-name" name="first-name"></div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon"><i class="icon icon-user"></i><input type="text" placeholder="Last Name" class="input-field" id="lastname-booking" name="lastname-booking">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon"><i class="icon icon-envelope2"></i><input type="text" placeholder="Email" class="input-field foodbakery-email-field" id="email-booking" name="email-booking">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon"><i class="icon icon-users3"></i>
+                                                                <select class="chosen-select" style="display: none;">
+                                                                    <option selected="selected" value="">Guests
+                                                                    </option>
+                                                                    <option value="">2 Guests</option>
+                                                                    <option value="">4 Guests</option>
+                                                                    <option value="">6 Guests</option>
+                                                                    <option value="">8 Guests</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon">
+                                                                <div class="date-sec"><i class="icon-event_available"> </i><input type="text" placeholder="Booking date" class="form-control booking-date" id="date-of-booking" name="date-of-booking">
+                                                                    <script>
+                                                                        jQuery(document).ready(function () {
+                                                                            var disabledDays = [""];
+                                                                            jQuery("#date-of-booking").datepicker({
+                                                                                showOtherMonths: true,
+                                                                                firstDay: 1,
+                                                                                minDate: 0,
+                                                                                dateFormat: "dd-mm-yy",
+                                                                                prevText: "",
+                                                                                nextText: "",
+                                                                                monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                                                                                    "Oct", "Nov", "Dec"
+                                                                                ],
+                                                                                beforeShow: function (textbox, instance) {
+                                                                                    $(this).parent().append($('#ui-datepicker-div'));
+                                                                                },
+                                                                                beforeShowDay: function (date) {
+                                                                                    var day = date.getDay();
+                                                                                    var string = jQuery
+                                                                                        .datepicker
+                                                                                        .formatDate(
+                                                                                            "dd-mm-yy",
+                                                                                            date
+                                                                                        );
+                                                                                    var isDisabled = (jQuery
+                                                                                        .inArray(
+                                                                                            string,
+                                                                                            disabledDays
+                                                                                        ) !=
+                                                                                        -1);
+                                                                                    //day != 0 disables all Sundays
+                                                                                    return [!
+                                                                                        isDisabled
+                                                                                    ];
+                                                                                },
+                                                                                onSelect: function (
+                                                                                    date) {
+                                                                                    jQuery(
+                                                                                            "#date-of-booking"
+                                                                                        )
+                                                                                        .val(
+                                                                                            date
+                                                                                        );
+                                                                                    load_available_time(date,
+                                                                                        '6272'
+                                                                                    );
+                                                                                }
+                                                                            });
+                                                                        });
+
+                                                                    </script>
+                                                                    <ul class="calendar-options">
+                                                                        <li class="avilable">Available</li>
+                                                                        <li class="unavailable">Unavailable</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon">
+                                                                <div class="booking_time_wrapper">
+                                                                    <div id="time-div-time-date-of-booking"><i class="icon-clock-o"></i>
+                                                                        <select class="chosen-select foodbakery-required-field" id="time-date-of-booking" style="display: none;">
+                                                                            <option value="">12:00 AM</option>
+                                                                            <option value="">12:15 AM</option>
+                                                                            <option value="">12:30 AM</option>
+                                                                            <option value="">12:45 AM</option>
+                                                                            <option value="">01:00 AM</option>
+                                                                            <option value="">01:15 AM</option>
+                                                                            <option value="">01:30 AM</option>
+                                                                            <option value="">01:45 AM</option>
+                                                                            <option value="">02:00 AM</option>
+                                                                            <option value="">02:15 AM</option>
+                                                                            <option value="">02:30 AM</option>
+                                                                            <option value="">02:45 AM</option>
+                                                                            <option value="">03:00 AM</option>
+                                                                            <option value="">03:15 AM</option>
+                                                                            <option value="">03:30 AM</option>
+                                                                            <option value="">03:45 AM</option>
+                                                                            <option value="">04:00 AM</option>
+                                                                            <option value="">04:15 AM</option>
+                                                                            <option value="">04:30 AM</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="field-holder has-icon field-textarea"><i class="icon icon-mode_edit"></i>
+                                                                <textarea placeholder="Your Instructions" id="contact-booking" name="contact-booking" class="input-field"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="field-holder">
+                                                                <div class="submit-btn">
+                                                                    <button type="button" class="field-btn bgcolor booking-submit-btn input-button-loader">Submit</button>
+                                                                    <span class="booking-loader"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="menu3" class="tab-pane fade">
+                                <div class="contact-info-detail">
+                                    <h5>Overview Restaurant Demo</h5>
+                                    <p class="restaurant-desc"></p>
+                                    <p>Base prepared fresh daily. Extra toppings are available in choose
+                                        extraChoose
+                                        you sauce: Go for BBQ sauce or piri piri sauce on your pizza base for no
+                                        extra cost.Choose your cut: Triangular, square, fingers or Un cut on any
+                                        size pizza
+                                    </p>
+                                    <div class="map-sec-holder">
+                                        <div class="cs-map-section">
+                                            <div class="cs-map">
+                                                <div class="cs-map-content">
+                                                    <div class="mapouter">
+                                                        <div class="gmap_canvas"><iframe width="100" height="180" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>Google Maps Generator
+                                                            by <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="contact-info">
+                                                <h5>Contact details</h5>
+                                                <p>Totnes, United Kingdom</p>
+                                                <ul>
+                                                    <li class="cell"><i class="icon-phone"></i><a href="#">+44
+                                                            (0) 20 3310 2000</a></li>
+                                                    <li class="pizzaeast"><i class="icon-globe2"></i><a href="#">http://www.chimpgroup.com</a></li>
+                                                    <li class="email"><i class="icon-mail5"></i><a class="text-color" href="#">Send Enquiry
+                                                            By Email</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="widget widget-timing">
+                                                <h5>Opening Hours</h5>
+                                                <ul>
+                                                    <li><span>Monday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Tuesday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Wednesday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Thursday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Friday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Saturday</span>11:00 am - 11:00 pm</li>
+                                                    <li><span>Sunday</span>Off</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sticky-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="user-order-holder">
+                        <div class="user-order">
+                            <h6><i class="icon-shopping-basket"></i>Your Order</h6>
+                            <span class="error-message pre-order-msg">This restaurant allows Pre orders.</span>
+                            <span class="discount-info" style="display: block;">If you have a discount code,<br>
+                                you will
+                                be able to input it<br> at the payments stage.</span>
+                            <div class="select-option dev-select-fee-option">
+                                <ul>
+                                    <li>
+                                        <input id="order-pick-up-fee" type="radio" name="order_fee_type">
+                                        <label for="order-pick-up-fee">Pick-Up</label>
+                                        <span>£15.00</span>
+                                    </li>
+                                    <li>
+                                        <input id="order-delivery-fee" checked="checked" type="radio" name="order_fee_type">
+                                        <label for="order-delivery-fee">Delivery</label>
+                                        <span>£10.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="dev-menu-orders-list">
+                                <ul class="categories-order">
+                                    <li>
+                                        <a href="#" class="btn-cross dev-remove-menu-item"><i class=" icon-cross3"></i></a>
+                                        <a>Chicken Tandoori Special 12" Deep Pan</a>
+                                        <span class="category-price">£4.50</span>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn-cross dev-remove-menu-item"><i class=" icon-cross3"></i></a>
+                                        <a>Chicken Tandoori Special 09" Deep Pan</a>
+                                        <span class="category-price">£6.50</span>
+                                        <ul>
+                                            <li>Drinks - chillies : <span class="category-price">£3.50</span>
+                                            </li>
+                                        </ul>
+                                        <a href="#" data-toggle="modal" data-target="#extras-0-1" class="update-menu dev-update-menu-btn">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn-cross dev-remove-menu-item"><i class=" icon-cross3"></i></a>
+                                        <a>Margherita 12" Deep Pan</a>
+                                        <span class="category-price">£5.50</span>
+                                    </li>
+                                </ul>
+                                <div class="price-area dev-menu-price-con">
+                                    <ul>
+                                        <li>Subtotal <span class="price">£<em class="dev-menu-subtotal">20.00</em></span></li>
+                                        <li class="restaurant-fee-con">
+                                            <span class="fee-title">Pick-Up</span>
+                                            <span class="price">£<em class="dev-menu-charges">15.00</em></span>
+                                        </li>
+                                        <li>VAT (13%) <span class="price">£<em class="dev-menu-vtax">4.55</em></span></li>
+                                    </ul>
+                                    <p class="total-price">Total <span class="price">£<em class="dev-menu-grtotal">39.55</em></span></p>
+                                </div>
+                            </div>
+                            <div id="dev-no-menu-orders-list">
+                                <span class="success-message">There are no items in your basket.</span>
+                            </div>
+                            <div class="pay-option dev-order-pay-options">
+                                <ul>
+                                    <li>
+                                        <input id="order-cash-payment" type="radio" name="order_payment_method">
+                                        <label for="order-cash-payment"><i class="icon-coins"></i>Cash</label>
+                                    </li>
+                                    <li>
+                                        <input id="order-card-payment" type="radio" checked="checked" name="order_payment_method">
+                                        <label for="order-card-payment"><i class="icon-credit-card4"></i>Card</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group date">
+                                            <input type="text" name="delivery_date" id="datetimepicker1" class="form-control" value="04-04-2020 10:07" placeholder="Select Date and Time">
+                                            <span class="input-group-addon">
+                                                <span class="icon-event_available"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="menu-order-confirm">Confirm Order</a>
+                            <span class="menu-loader"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

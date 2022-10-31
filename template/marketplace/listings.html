@@ -27,7 +27,7 @@
                                     <li style="line-height: 15px;">
                                         <div class="img-holder">
                                             <figure>
-                                                <a href="#">
+                                                <a href="{% url 'vendor_detail' vendor.vendor_slug %}">
                                                     {% if vendor.user_profil.profile_picture %}
                                                     <img src="{{ vendor.user_profil.profile_picture.url }}" class="img-list wp-post-image" alt="">
                                                     {% else %}
@@ -45,7 +45,7 @@
                                             
                                             <div class="post-title">
                                                 <h5>
-                                                    <a href="#">{{ vendor.vendor_name }}</a>
+                                                    <a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{ vendor.vendor_name }}</a>
                                                 </h5>
                                             </div>
                                             {% if vendor.user_profil.address %}
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="list-option">
 
-                                            <a href="#" class="viewmenu-btn text-color">View Menu</a>
+                                            <a href="{% url 'vendor_detail' vendor.vendor_slug %}" class="viewmenu-btn text-color">View Menu</a>
                                         </div>
                                     </li>
                                     {% endfor %}
