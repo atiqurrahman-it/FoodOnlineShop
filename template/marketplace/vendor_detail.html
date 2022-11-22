@@ -146,9 +146,7 @@
                                                     <a href="#" class="decrease_cart" style="margin-right:28px;"><i class="icon-minus text-color"></i></a>
                                                     <label id="qty" style="font-size: 13px;"> 0 </label>
 
-                                                    <a href="#" class="add_to_cart"><i class="icon-plus4 text-color"></i></a>
-
-
+                                                    <a href="#" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}" class="add_to_cart"> <i class="icon-plus4 text-color"></i></a>
                                                 </div>
                                             </li>
                                             {% endif  %}

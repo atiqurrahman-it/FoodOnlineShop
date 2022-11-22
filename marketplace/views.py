@@ -1,7 +1,9 @@
-from django.shortcuts import render,get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
+
+from menu.models import Category, FoodItem
 # Create your views here.
 from vendor.models import Vendor
-from menu.models import Category,FoodItem
 
 
 def Marketplace(request):
@@ -33,3 +35,9 @@ def vendor_detail(request,vendor_slug):
     }
     return render(request,'marketplace/vendor_detail.html',data)
 
+
+def add_to_cart(request,food_id):
+    if request.user.is_authenticated:
+        return JsonResponse({'status': 'Success', 'message': 'user is login!'})
+    else:
+        return JsonResponse({'status': 'Failed', 'message': 'please login '})
