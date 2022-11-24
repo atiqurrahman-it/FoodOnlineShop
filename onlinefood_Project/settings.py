@@ -79,6 +79,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # views file er jonno all index file e data access pabe 
                 'userAccount.data_processors.get_all_data_vendor',
+                # total food items show user cart
+                'marketplace.contex_processor.get_cart_counter',
             ],
         },
     },

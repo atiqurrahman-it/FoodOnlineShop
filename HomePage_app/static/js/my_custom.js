@@ -16,7 +16,8 @@ $(document).ready(function(){
             url: food_url,
             data:data,
             success: function (response_data) {
-                alert(response_data);
+                // alert(response_data);
+                console.log(response_data);
             }
         })
 
