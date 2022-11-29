@@ -32,7 +32,7 @@
                                                 <li id="cart-item-{{item.id}}">
                                                     <div class="image-holder"> <img src="{{ item.fooditem.image.url }}" alt=""></div>
                                                     <div class="text-holder">
-                                                        <h6>{{ item.fooditem }}</h6>
+                                                        <h6>{{ item.fooditem.food_title }}</h6>
                                                         <span>{{ item.fooditem.description }}</span>
                                                         <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
                                                     </div>
@@ -42,7 +42,7 @@
                                                         <a href="#" class="decrease_cart" data-id="{{ item.fooditem.id }}" id="{{item.id}}" data-url="{% url 'decrease_cart' item.fooditem.id %}" style="margin-right: 28px;"><i class="icon-minus text-color"></i></a>
                                                         <label id="qty-{{item.fooditem.id}}">0</label>
                                                         <a href="#" class="add_to_cart" data-id="{{ item.fooditem.id }}" data-url="{% url 'add_to_cart' item.fooditem.id %}"><i class="icon-plus4 text-color"></i></a>
-                                                        <a href="#" class="delete_cart" data-id="{{ item.id }}" data-url="#"><i class="icon-delete text-color"></i></a>
+                                                        <a href="#" class="delete_cart" data-id="{{ item.id }}" data-url="{% url 'delete_cart' item.id %}"><i class="icon-delete text-color"></i></a>
                                                         
                                                     </div>
                                                 </li>
@@ -90,18 +90,19 @@
                                                     <span id="subtotal">{{ subtotal }}</span>
                                                 </span>
                                             </li>
+                                            <li> tax:  <span id="tax">{{tax}}</span></li>
 
-                                            {% for key, value in tax_dict.items %}
-                                                {% for i, j in value.items %}
-                                                    <li style="list-style-type: none;">
-                                                        {{ key }} <small>({{ i }}%)</small>
+                                            <!-- {% for key, value in tax_dict.items %}
+                                                {% for i, j in value.items %} -->
+                                                    <li>
+                                                        <!-- {{ key }} <small>({{ i }}%)</small> -->
                                                         <span class="price float-right">
                                                             <span class="currency">$</span>
-                                                            <span id="tax-{{ key }}">{{ j }}</span>
+                                                            <span id="tax">0</span>
                                                         </span>
                                                     </li>
-                                                {% endfor %}
-                                            {% endfor %}
+                                                <!-- {% endfor %}
+                                            {% endfor %} -->
 
 
                                             <li style="list-style-type: none; font-weight: 600;">

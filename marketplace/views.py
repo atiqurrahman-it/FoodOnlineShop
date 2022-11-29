@@ -7,6 +7,9 @@ from menu.models import Category, FoodItem
 from vendor.models import Vendor
 
 from .contex_processor import get_cart_counter
+from .contex_processor import get_cart_amount
+from django.contrib.auth.decorators import login_required
+
 
 
 def Marketplace(request):
@@ -62,11 +65,10 @@ def add_to_cart(request,food_id):
                     # increase the food quentity
                     chkcart.quantity +=1
                     chkcart.save()
-                    return JsonResponse({'status': 'Success', 'message': 'increased the cart quantity!','cart_counter':get_cart_counter(request),'qty':chkcart.quantity})
+                    return JsonResponse({'status': 'Success', 'message': 'increased the cart quantity!','cart_counter':get_cart_counter(request),'qty':chkcart.quantity,'cart_amount':get_cart_amount(request)})
                 except:
                     chkcart=Cart.objects.create(user=request.user, fooditem=food_item,quantity=1)
-                    return JsonResponse({'status': 'Success', 'message': 'added the food to the cart !','cart_counter':get_cart_counter(request),'qty':chkcart.quantity})
-
+                    return JsonResponse({'status': 'Success', 'message': 'added the food to the cart !','cart_counter':get_cart_counter(request),'qty':chkcart.quantity,'cart_amount':get_cart_amount(request)})
 
             except:
                 return JsonResponse({'status': 'Failed', 'message': 'this food does not exit !'})
@@ -93,11 +95,11 @@ def decrease_cart(request,food_id):
                     if chkcart.quantity > 1:
                         chkcart.quantity -=1
                         chkcart.save()
-                        return JsonResponse({'status': 'Success', 'message': 'decreased the cart quantity!','cart_counter':get_cart_counter(request),'qty':chkcart.quantity})
+                        return JsonResponse({'status': 'Success', 'message': 'decreased the cart quantity!','cart_counter':get_cart_counter(request),'qty':chkcart.quantity,'cart_amount':get_cart_amount(request)})
                     else:
                         chkcart.delete()
                         chkcart.quantity =0
-                        return JsonResponse({'status': 'Success', 'message':'delete form cart','cart_counter':get_cart_counter(request),'qty':chkcart.quantity})
+                        return JsonResponse({'status': 'Success', 'message':'delete form cart','cart_counter':get_cart_counter(request),'qty':chkcart.quantity,'cart_amount':get_cart_amount(request)})
                 except:
                     return JsonResponse({'status': 'Failed', 'message': 'you do not have this item in your cart !'})
 
@@ -110,7 +112,7 @@ def decrease_cart(request,food_id):
         return JsonResponse({'status': 'login_required', 'message': 'please login to continue '})
 
 
-
+@login_required(login_url='/accounts/login')
 def cart(request):
     if request.user.is_authenticated:
         cart_items=Cart.objects.filter(user=request.user)
@@ -120,4 +122,23 @@ def cart(request):
         "cart_items":cart_items,
     }
     return render(request,'marketplace/cart.html',data)
+
+
+def delete_cart(request,cart_id):
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            try:
+                cart_item=Cart.objects.get(user=request.user,id=cart_id)
+                if cart_item:
+                    cart_item.delete()
+                    return JsonResponse({'status': 'Success', 'message': 'successfully cart item has been deleted!','cart_counter':get_cart_counter(request),'cart_amount':get_cart_amount(request)})
+            except:
+                return JsonResponse({'status': 'Failed', 'message': 'cart item does not exits '})
+        else:
+            return JsonResponse({'status': 'Failed', 'message': 'invalid request !'})
+    
+    
+
+
+
 

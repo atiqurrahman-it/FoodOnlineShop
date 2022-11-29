@@ -81,6 +81,9 @@ TEMPLATES = [
                 'userAccount.data_processors.get_all_data_vendor',
                 # total food items show user cart
                 'marketplace.contex_processor.get_cart_counter',
+                # total cost for add to cart 
+                'marketplace.contex_processor.get_cart_amount',
+
             ],
         },
     },
