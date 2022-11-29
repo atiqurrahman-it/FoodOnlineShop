@@ -19,12 +19,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from marketplace import views as marketplaceviews
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('HomePage_app.urls')),
     path('custom_user_model/',include('custom_user_model.urls')),
     path('accounts/',include('userAccount.urls')),
+
     path('marketplace/',include('marketplace.urls')),
+
+    # cart
+    path('cart/',marketplaceviews.cart,name='cart'),
     
 ]
 

@@ -111,3 +111,13 @@ def decrease_cart(request,food_id):
 
 
 
+def cart(request):
+    if request.user.is_authenticated:
+        cart_items=Cart.objects.filter(user=request.user)
+    else:
+        cart_items=None
+    data={
+        "cart_items":cart_items,
+    }
+    return render(request,'marketplace/cart.html',data)
+
